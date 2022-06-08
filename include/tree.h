@@ -6,59 +6,59 @@
 class Tree {
  private:
   struct Node {
-    char znach;
+    char value;
     std::vector<Node*> sheet;
   };
   Node* root;
   std::vector<std::string> permutation;
-  void constructTree(Node* root, std::vector<char> figyra) {
-    if (!figyra.size()) {
+  void constructTree(Node* root, std::vector<char> figure) {
+    if (!figure.size()) {
       return;
     }
-    if (root->znach != '*') {
-      for (auto x = figyra.begin(); x != figyra.end(); ++x) {
-        if (*x == root->znach) {
-          figyra.erase(x);
+    if (root->value != '*') {
+      for (auto x = figure.begin(); x != figure.end(); ++x) {
+        if (*x == root->value) {
+          figure.erase(x);
           break;
         }
       }
     }
-    for (size_t i = 0; i < figyra.size(); ++i) {
+    for (size_t i = 0; i < figure.size(); ++i) {
       root->sheet.push_back(new Node);
     }
     for (size_t i = 0; i < root->sheet.size(); ++i) {
-      root->sheet[i]->znach = figyra[i];
+      root->sheet[i] = figure[i];
+      root->sheet[i]->value = figure[i];
     }
     for (size_t i = 0; i < root->sheet.size(); ++i) {
-      constructTree(root->sheet[i], figyra);
+      constructTree(root->sheet[i], figure);
     }
   }
   void Permutation(Node*root, std::string s = "") {
     if (!root->sheet.size()) {
-      s += root->znach;
+      s += root->value;
       permutation.push_back(s);
       return;
     }
-    if (root->znach != '*') {
-      s += root->znach;
+    if (root->value != '*') {
+      s += root->value;
     }
     for (size_t i = 0; i < root->sheet.size(); ++i) {
       Permutation(root->sheet[i], s);
     }
   }
- 
-  public:
-   explicit Tree(std::vector<char> v) {
+ public:
+  explicit Tree(std::vector<char> v) {
     root = new Node;
-    root->znach = '*';
+    root->value = '*';
     constructTree(root, v);
     Permutation(root);
-   }
-   std::string operator[](int i) const {
+  }
+  std::string operator[](int i) const {
     if (i >= permutation.size()) {
       return "";
     }
     return permutation[i];
-   }
-  };
+  }
+};
 #endif  // INCLUDE_TREE_H_
