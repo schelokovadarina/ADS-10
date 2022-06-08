@@ -47,18 +47,18 @@ class Tree {
     }
   }
  
- public:
-  explicit Tree(std::vector<char> v) {
+  public:
+   explicit Tree(std::vector<char> v) {
     root = new Node;
     root->znach = '*';
     constructTree(root, v);
     Permutation(root);
-  }
-  std::string operator[](int i) const {
+   }
+   std::string operator[](int i) const {
     if (i >= permutation.size()) {
       return "";
     }
     return permutation[i];
-  }
-};
+   }
+  };
 #endif  // INCLUDE_TREE_H_
