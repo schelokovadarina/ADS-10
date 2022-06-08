@@ -46,7 +46,8 @@ class Tree {
       Permutation(root->sheet[i], s);
     }
   }
-  public:
+ 
+ public:
   explicit Tree(std::vector<char> v) {
     root = new Node;
     root->znach = '*';
